@@ -1,8 +1,8 @@
-* Editor
+# Editor
 neovim nightly
 
-* Network Module 
+# Network Module 
 nm-applet
 
-* Font 
+# Font 
 Iosevka
