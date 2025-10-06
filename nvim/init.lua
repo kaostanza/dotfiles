@@ -48,7 +48,7 @@ require "blink.cmp".setup({
 	fuzzy = { implementation = "lua" },
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist" })
+vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist", "hls" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
