@@ -5,6 +5,7 @@ vim.o.wrap = false
 vim.o.tabstop = 4
 vim.g.mapleader = ' '
 vim.o.winborder = 'rounded'
+vim.o.expandtab = true
 
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
