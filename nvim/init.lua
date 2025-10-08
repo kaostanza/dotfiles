@@ -6,7 +6,7 @@ vim.o.tabstop = 4
 vim.g.mapleader = ' '
 vim.o.winborder = 'rounded'
 vim.o.expandtab = true
-
+vim.o.splitbelow = true
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
@@ -14,6 +14,10 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
+
+vim.keymap.set({'n'}, '<leader>th', ':split | terminal<CR>')
+vim.keymap.set({'n'}, '<leader>tv', ':vsplit | terminal<CR>')
+vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]])
 
 -- Pour pouvoir valider l'autocomplete avec TAB
 -- vim.keymap.del("i", "<Tab>")
