@@ -8,6 +8,7 @@ vim.o.winborder = 'rounded'
 vim.o.expandtab = true
 vim.o.splitbelow = true
 
+
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
@@ -19,20 +20,24 @@ vim.keymap.set({'n'}, '<leader>th', ':split | terminal<CR>')
 vim.keymap.set({'n'}, '<leader>tv', ':vsplit | terminal<CR>')
 vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]])
 
+vim.keymap.set('n', '<leader>g', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
+
 -- Pour pouvoir valider l'autocomplete avec TAB
 -- vim.keymap.del("i", "<Tab>")
 
 vim.pack.add({
-	{ src = "https://github.com/vague2k/vague.nvim" },
-	{ src = "https://github.com/blazkowolf/gruber-darker.nvim" },
-	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/echasnovski/mini.pick" },
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
-	{ src = "https://github.com/saghen/blink.cmp" },
+	{ src = "https://github.com/vague2k/vague.nvim"           },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim"},
+	{ src = "https://github.com/nvim-lua/plenary.nvim"        },
+	{ src = "https://github.com/stevearc/oil.nvim"            },
+	{ src = "https://github.com/echasnovski/mini.pick"        },
+	{ src = "https://github.com/neovim/nvim-lspconfig"        },
+	{ src = "https://github.com/saghen/blink.cmp"             },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
-	{ src = "https://github.com/mbbill/undotree" },
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons"  },
+	{ src = "https://github.com/mbbill/undotree"              },
 	{ src = "https://github.com/chomosuke/typst-preview.nvim" },
+	{ src = "https://github.com/MrcJkb/haskell-tools.nvim"    }, 
 })
 
 require "mini.pick".setup()
@@ -53,7 +58,7 @@ require "blink.cmp".setup({
 	fuzzy = { implementation = "lua" },
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist", "hls" })
+vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist" })
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
@@ -62,23 +67,14 @@ vim.keymap.set('n', '<leader>e', ':Oil<CR>')
 
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 
-vim.cmd("colorscheme gruber-darker")
+
+vim.cmd("colorscheme vague")
 vim.cmd(":hi statusline guibg=NONE")
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function()
-		local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
-		for _, client in ipairs(clients) do
-			if client.supports_method("textDocument/formatting") then
-				vim.lsp.buf.format({ async = false })
-				break
-			end
-		end
-	end,
-})
-vim.api.nvim_create_autocmd("CursorMoved", {
+vim.o.updatetime = 250
+vim.api.nvim_create_autocmd("CursorHold", {
 	callback = function()
 		vim.diagnostic.open_float(nil,
 			{ focusable = false, close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" } })
