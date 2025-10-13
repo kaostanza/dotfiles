@@ -2,12 +2,15 @@ local vim = vim
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.wrap = false
+vim.o.shiftwidth = 4
 vim.o.tabstop = 4
+vim.o.softtabstop = 4
 vim.g.mapleader = ' '
 vim.o.winborder = 'rounded'
 vim.o.expandtab = true
 vim.o.splitbelow = true
-
+vim.o.cindent = true
+vim.o.cinoptions = "(0"
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
