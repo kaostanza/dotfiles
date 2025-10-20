@@ -30,6 +30,7 @@ vim.keymap.set('n', '<leader>g', '<cmd>lua vim.lsp.buf.format({async = true})<CR
 
 vim.pack.add({
 	{ src = "https://github.com/vague2k/vague.nvim"           },
+    { src = "https://github.com/leojimenezg/minimal-madness-nvim"},
 	{ src = "https://github.com/nvim-telescope/telescope.nvim"},
 	{ src = "https://github.com/nvim-lua/plenary.nvim"        },
 	{ src = "https://github.com/stevearc/oil.nvim"            },
@@ -73,7 +74,7 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 
 
-vim.cmd("colorscheme vague")
+vim.cmd("colorscheme minimal-madness-nvim")
 vim.cmd(":hi statusline guibg=NONE")
 
 vim.o.updatetime = 250
