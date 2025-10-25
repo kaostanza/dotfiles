@@ -12,6 +12,9 @@ vim.o.splitbelow = true
 vim.o.cindent = true
 vim.o.cinoptions = "(0"
 
+-- CTRL-o ET CTRL-i pour revenir en arrière, retourner en avant (après un gd ou gD par exemple)
+
+
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
@@ -19,9 +22,11 @@ vim.keymap.set('n', '<leader>q', ':quit<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
 
-vim.keymap.set({'n'}, '<leader>th', ':split | terminal<CR>')
-vim.keymap.set({'n'}, '<leader>tv', ':vsplit | terminal<CR>')
+vim.keymap.set('n', '<leader>th', ':split<CR>')
+vim.keymap.set('n', '<leader>tv', ':vsplit<CR>')
+vim.keymap.set('n', '<leader>tt', ':terminal<CR>')
 vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]])
+
 
 vim.keymap.set('n', '<leader>g', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
 
@@ -65,6 +70,15 @@ require "blink.cmp".setup({
 
 vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist" , "zls"})
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', 'gi', function()
+  local params = vim.lsp.util.make_position_params()
+  vim.lsp.buf_request(0, 'textDocument/definition', params, function(_, result)
+    if not result or vim.tbl_isempty(result) then return end
+    local locations = vim.tbl_islist(result) and result or { result }
+    vim.lsp.util.jump_to_location(locations[1], 'utf-8')
+  end)
+end)
+
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
 
