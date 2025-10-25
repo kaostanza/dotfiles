@@ -27,6 +27,10 @@ vim.keymap.set('n', '<leader>tv', ':vsplit<CR>')
 vim.keymap.set('n', '<leader>tt', ':terminal<CR>')
 vim.keymap.set({'t'}, '<Esc>', [[<C-\><C-n>]])
 
+vim.keymap.set('n', '<C-Up>',    ':resize +2<CR>')
+vim.keymap.set('n', '<C-Down>',  ':resize -2<CR>')
+vim.keymap.set('n', '<C-Left>',  ':vertical resize -2<CR>')
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
 
 vim.keymap.set('n', '<leader>g', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
 
