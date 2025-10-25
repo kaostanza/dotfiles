@@ -42,6 +42,7 @@ vim.pack.add({
 	{ src = "https://github.com/mbbill/undotree"              },
 	{ src = "https://github.com/chomosuke/typst-preview.nvim" },
 	{ src = "https://github.com/MrcJkb/haskell-tools.nvim"    }, 
+	{ src = "https://github.com/rebelot/kanagawa.nvim"        },
 })
 
 require "mini.pick".setup()
@@ -74,7 +75,7 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
 
 
-vim.cmd("colorscheme minimal-madness-nvim")
+vim.cmd("colorscheme kanagawa")
 vim.cmd(":hi statusline guibg=NONE")
 
 vim.o.updatetime = 250
