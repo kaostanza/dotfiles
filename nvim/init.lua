@@ -14,7 +14,6 @@ vim.o.cinoptions = "(0"
 
 -- CTRL-o ET CTRL-i pour revenir en arrière, retourner en avant (après un gd ou gD par exemple)
 
-
 vim.keymap.set('n', '<leader>o', ':update<CR> :source<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
 vim.keymap.set('n', '<leader>q', ':quit<CR>')
@@ -38,22 +37,24 @@ vim.keymap.set('n', '<leader>g', '<cmd>lua vim.lsp.buf.format({async = true})<CR
 -- vim.keymap.del("i", "<Tab>")
 
 vim.pack.add({
-	{ src = "https://github.com/vague2k/vague.nvim"           },
-    { src = "https://github.com/leojimenezg/minimal-madness-nvim"},
-	{ src = "https://github.com/nvim-telescope/telescope.nvim"},
-	{ src = "https://github.com/nvim-lua/plenary.nvim"        },
-	{ src = "https://github.com/stevearc/oil.nvim"            },
-	{ src = "https://github.com/echasnovski/mini.pick"        },
-	{ src = "https://github.com/neovim/nvim-lspconfig"        },
-	{ src = "https://github.com/saghen/blink.cmp"             },
-	{ src = "https://github.com/rafamadriz/friendly-snippets" },
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons"  },
-	{ src = "https://github.com/mbbill/undotree"              },
-	{ src = "https://github.com/chomosuke/typst-preview.nvim" },
-	{ src = "https://github.com/MrcJkb/haskell-tools.nvim"    }, 
-	{ src = "https://github.com/rebelot/kanagawa.nvim"        },
+	{ src = "https://github.com/vague2k/vague.nvim"                               },
+    { src = "https://github.com/leojimenezg/minimal-madness-nvim"                 },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim"                    },
+	{ src = "https://github.com/nvim-lua/plenary.nvim"                            },
+	{ src = "https://github.com/stevearc/oil.nvim"                                },
+	{ src = "https://github.com/echasnovski/mini.pick"                            },
+	{ src = "https://github.com/neovim/nvim-lspconfig"                            },
+	{ src = "https://github.com/saghen/blink.cmp"                                 },
+	{ src = "https://github.com/rafamadriz/friendly-snippets"                     },
+	{ src = "https://github.com/nvim-tree/nvim-web-devicons"                      },
+	{ src = "https://github.com/mbbill/undotree"                                  },
+	{ src = "https://github.com/chomosuke/typst-preview.nvim"                     },
+	{ src = "https://github.com/MrcJkb/haskell-tools.nvim"                        },
+	{ src = "https://github.com/rebelot/kanagawa.nvim"                            },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = 'main'},
 })
 
+require "nvim-treesitter".install({'c3'})
 require "mini.pick".setup()
 require "oil".setup({
 	columns = {
@@ -72,7 +73,7 @@ require "blink.cmp".setup({
 	fuzzy = { implementation = "lua" },
 })
 
-vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist" , "zls"})
+vim.lsp.enable({ "lua_ls", "clangd", "gopls", "rust_analyzer", "tinymist" , "zls", "c3_lsp"})
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', 'gi', function()
   local params = vim.lsp.util.make_position_params()
@@ -102,4 +103,13 @@ vim.api.nvim_create_autocmd("CursorHold", {
 		vim.diagnostic.open_float(nil,
 			{ focusable = false, close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" } })
 	end,
+})
+
+vim.api.nvim_create_autocmd("FileType",{
+    callback = function(args)
+        local buf = args.buf
+        local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype)
+        if not lang then return end
+        if vim.treesitter.language.add(lang) then vim.treesitter.start(buf, lang) end
+    end,
 })
