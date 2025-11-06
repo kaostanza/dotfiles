@@ -59,6 +59,9 @@ vim.pack.add({
 require "nvim-treesitter".install({'c3'})
 require "mini.pick".setup()
 require "oil".setup({
+    view_options = {
+        show_hidden=true,
+    },
 	columns = {
 		"icon",
 		"filename",
