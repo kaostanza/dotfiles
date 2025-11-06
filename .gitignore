@@ -4,11 +4,13 @@
 !/kitty/
 !/nvim/
 !/waybar/
+!/niri/
 
 !/hypr/**
 !/kitty/**
 !/nvim/**
 !/waybar/**
+!/niri/**
 
 !.gitignore
 !README.md
