@@ -12,7 +12,7 @@ vim.o.splitbelow = true
 vim.o.cindent = true
 vim.o.cinoptions = "(0"
 vim.o.undofile = true
-vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
+vim.o.undodir = (os.getenv("HOME") or os.getenv("USERPROFILE")) .. "/.local/share/nvim/undo"
 
 -- CTRL-o ET CTRL-i pour revenir en arrière, retourner en avant (après un gd ou gD par exemple)
 
