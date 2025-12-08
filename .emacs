@@ -6,6 +6,7 @@
 (cua-mode) ; Enable Copy/Cut and Pasting witch C-c,C-x & C-v
 
 (global-set-key (kbd "<espace>") 'keyboard-escape-quit) ; Make ESC quit prompts
+(global-set-key (kbd "C-x c") 'compile) ; Open compile command prompt 
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
