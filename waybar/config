@@ -8,14 +8,15 @@
   ],
 
   "modules-center": [
-    "clock"
+    "niri/window"
   ],
 
   "modules-right": [
     "tray",
     "network",
     "wireplumber",
-    "battery"
+    "battery",
+    "clock"
   ],
 
   "clock": {
